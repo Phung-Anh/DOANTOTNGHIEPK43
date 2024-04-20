@@ -1,0 +1,103 @@
+﻿@model DOANTOTNGHIEPK43.Models.OrderViewModel
+@{
+    ViewBag.Title = "Thanh Toán";
+}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_responsive.css">
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ Hàng</a></li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Thanh toán</h1>
+                    <p class="text-center">Bạn hãy kiểm tra lại thông tin đơn hàng</p>
+                </div>
+
+            </div>
+            <hr />
+            @if (ViewBag.CheckCart != null)
+            {
+                <div class="row">
+                    <div id="show_success"></div>
+                    <div class="col-md-9">
+                        @Html.Action("Partial_CheckOut", "ShoppingCart")
+                    </div>
+                    <div class="col-md-3">
+                        @Html.Action("Partial_Item_ThanhToan", "ShoppingCart")
+
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    Bạn chưa có sản phẩm nào . Vui lòng quay lại <a href="/san-pham">sản phẩm</a>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/assets/js/contact_custom.js"></script>
+    <script>
+        //function OnSuccessCO() {
+        //    if (rs.Success) {
+        //        $('#show_success').html("Bạn đã mua hàng thành công");
+        //    }
+        //}
+
+        function OnFailure() {
+            if (!rs.Success) {
+                $('#show_success').html("Bạn đã mua hàng thất bại");
+            }
+        }
+        $(document).ready(function () {
+            $('#myFrom').validate({
+                rules: {
+                    'CustomerName': {
+                        required: true
+                    },
+                    'Phone': {
+                        required: true
+                    },
+                    'Address': {
+                        required: true
+                    },
+                    'Email': {
+                        required: true,
+                        email: true
+                    }
+
+                },
+                messages: {
+                    'CustomerName': 'Bạn không để trống trường này',
+                    'Phone': 'Bạn không để trống trường này',
+                    'Address': 'Bạn vui lòng nhập thông tin để giao hàng',
+                    'Email': 'Email chưa hợp lệ'
+                }
+
+            });
+        });
+    </script>
+}
+
+
+@*@model DOANTOTNGHIEPK43.Models.OrderViewModel với model này thì nó sẽ truyền các dữ liệu trong model ra*@
+

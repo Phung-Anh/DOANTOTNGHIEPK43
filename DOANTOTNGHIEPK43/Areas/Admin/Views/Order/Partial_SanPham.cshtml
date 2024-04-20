@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DOANTOTNGHIEPK43.Models.EF.OrderDetail>
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            
+            @foreach (var item in Model)
+            {
+                var i = 0;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Product.Title</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quatity</td>
+                    <td>@DOANTOTNGHIEPK43.Common.Common.FormatNumber((item.Price * item.Quatity))</td>
+
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+
+}

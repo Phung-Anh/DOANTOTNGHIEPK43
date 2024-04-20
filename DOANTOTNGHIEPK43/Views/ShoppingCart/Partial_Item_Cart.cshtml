@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DOANTOTNGHIEPK43.Models.ShoppingCartItem>
+@using DOANTOTNGHIEPK43.Common
+<div class="col-md-12">
+    <table class="table">
+        <tr class="text-center">
+            <th>STT</th>
+            <th>Ảnh sản phẩm</th>
+            <th>Tên sản phẩm</th>
+            <th>Danh Mục</th>
+            <th>Giá</th>
+            <th style="width:100px;">Số Lượng</th>
+            <th>Thành tiền</th>
+
+            <th style="width:200px;">
+            </th>
+        </tr>
+        @if (Model != null && Model.Any())
+        {
+            var i = 0;
+            var tongtien = decimal.Zero;
+            foreach (var item in Model)
+            {
+                tongtien += item.TotalPrice;
+                <tr class="text-center" id="trow_@item.ProductId">
+                    <td>@(i + 1)</td>
+                    <td><img src="@item.ProductImg" width="60" /></td>
+                    <td><a href="/chi-tiet/@item.Alias-p@(item.ProductId)">@item.ProductName</a></td>
+                    <td>@item.CategoryName</td>
+                    <td>@Common.FormatNumber(item.Price, 0)</td>
+                    <td><input type="number" class="form-control" id="Quantity_@item.ProductId" value="@item.Quantity" /></td>
+                    <td>@Common.FormatNumber(item.TotalPrice, 2)</td>
+
+                    <td>
+                        <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDeleted">Xóa</a>
+                        <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-success btnUpdate"> Cập Nhật</a>
+                    </td>
+                </tr>
+                i++;
+            }
+            <tr>
+                <th class="text-right" colspan="6">Tổng:</th>
+                <th class="text-center">@Common.FormatNumber(tongtien, 0)</th>
+                <td></td>
+
+            </tr>
+            @*<tr>
+                    <th class="text-right" colspan="6"></th>
+                    <th></th>
+                    <th class="text-center">
+                       <a href="#" class=" btn btn-sm btn-danger btnDeletedAll">Xóa</a>
+                        <a href="#" class="btn btn-sm btn-success">Thanh toán</a>
+                    </th>
+                    <td></td>
+
+                </tr>*@
+
+        }
+        else
+        {
+            <tr>
+                <th colspan="7">
+                    Không có sản phẩm
+                </th>
+            </tr>
+        }
+    </table>
+</div>
+
+@*@model IEnumerable<DOANTOTNGHIEPK43.Models.ShoppingCartItem> nó gọi tới viewmodel shoppercartitem để hiện thị view ra cho người dùng nhìn thấy*@
+@*với các item truyền vào là các dữ liệu được khai báo tròn shoppercartitem*@
